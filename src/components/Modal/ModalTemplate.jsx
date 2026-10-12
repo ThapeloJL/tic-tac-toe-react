@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import { ModalBackdrop , ModalContainer} from "./Modal.styled";
 
 const ModalTemplate = () => {
-  const { handleModal, modalContent, modal } = useContext(ModalContext);
+  const {  modalContent, modal } = useContext(ModalContext);
   if (modal) {
     return ReactDOM.createPortal(
       <ModalBackdrop>

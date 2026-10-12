@@ -7,36 +7,27 @@ import { genConfig } from "react-nice-avatar";
 export const GameContext = createContext({});
 
 export const GameContextProvider = (props) => {
+  const { handleModal } = useContext(ModalContext);
+
   const [game, setGame] = useState({
     board: Array(9).fill(""),
     player1: {
       choice: "X",
       name: "Tshepang",
       score: 0,
-      color : "#ff2329",
-      avatarConfig : genConfig(),
+      color: "#ff2329",
+      avatarConfig: genConfig(),
     },
     player2: {
       choice: "O",
       name: "Matshidiso",
       score: 0,
-      color : "#0030f3",
-      avatarConfig : genConfig(),
+      color: "#0030f3",
+      avatarConfig: genConfig(),
     },
     turn: "X",
-    roundWinner : ""
+    roundWinner: "",
   });
-
-  // const winner = checkForWinner(game.board) ? (game.turn === "X" ? "O" : "X") : (null);
-
-  // const updateBoard = (index) => {
-  //   let updatedBoard = game.board;
-  //   updatedBoard[index] = game.turn;
-  //   setGame({
-  //     ...game,
-  //     board: updatedBoard,
-  //     turn: game.turn === "X" ? "O" : "X",
-  //   });
 
   const updateBoard = (index) => {
     setGame((prev) => {
@@ -46,8 +37,6 @@ export const GameContextProvider = (props) => {
       return { ...prev, board, turn: prev.turn === "X" ? "O" : "X" };
     });
   };
-
-  const { handleModal } = useContext(ModalContext);
 
   const toggleChoice = (choice) => (choice === "X" ? "O" : "X");
 
@@ -62,7 +51,7 @@ export const GameContextProvider = (props) => {
   };
 
   const getRoundResults = (board) => {
-    //winner player1 , player2 ,draw 
+    //winner player1 , player2 ,draw
     const symbol = checkForWinner(board);
     if (symbol) {
       return game.player1.choice === symbol ? "player1" : "player2";
@@ -70,10 +59,6 @@ export const GameContextProvider = (props) => {
     if (board.every((cell) => cell !== "")) return "draw";
     return null;
   };
-
-  // const onContinue = () => {
-  //   resetBoard();
-  // };
 
   useEffect(() => {
     const result = getRoundResults(game.board);
@@ -84,8 +69,8 @@ export const GameContextProvider = (props) => {
         [result]: { ...prev[result], score: prev[result].score + 1 },
       }));
     }
-      handleModal(<RoundOver onContinue={resetBoard} result={result} />);
-  }, [game.board]);
+    handleModal(<RoundOver onContinue={resetBoard} result={result} />);
+  },[]);
 
   return (
     <GameContext.Provider

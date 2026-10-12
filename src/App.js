@@ -5,7 +5,6 @@ import { ThemeProvider } from "styled-components";
 import { lightTheme, darkTheme } from "./styles/theme";
 import { ThemeContext } from "./contexts/ThemeContext";
 import ModalTemplate from "./components/Modal/ModalTemplate";
-import MusicPlayer from "./components/MusicPlayer/MusicPlayer";
 
 const App = () => {
   const { theme } = useContext(ThemeContext);
@@ -16,7 +15,6 @@ const App = () => {
       <GlobalStyle />
       <Router />
       <ModalTemplate />
-      <MusicPlayer />
     </ThemeProvider>
   );
 };
