@@ -1,10 +1,25 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { checkForWinner } from "../utils/GameUltils";
 import { ModalContext } from "./ModalContext";
 import RoundOver from "../components/Modals/RoundOver";
 import { genConfig } from "react-nice-avatar";
 
 export const GameContext = createContext({});
+
+const toggleChoice = (choice) => (choice === "X" ? "O" : "X");
+
+const computeRoundResult = (board, player1Choice) => {
+  const symbol = checkForWinner(board);
+  if (symbol) return player1Choice === symbol ? "player1" : "player2";
+  if (board.every((cell) => cell !== "")) return "draw";
+  return null;
+};
 
 export const GameContextProvider = (props) => {
   const { handleModal } = useContext(ModalContext);
@@ -38,9 +53,7 @@ export const GameContextProvider = (props) => {
     });
   };
 
-  const toggleChoice = (choice) => (choice === "X" ? "O" : "X");
-
-  const resetBoard = () => {
+  const resetBoard = useCallback(() => {
     setGame((prev) => ({
       ...prev,
       board: Array(9).fill(""),
@@ -48,29 +61,32 @@ export const GameContextProvider = (props) => {
       player1: { ...prev.player1, choice: toggleChoice(prev.player1.choice) },
       player2: { ...prev.player2, choice: toggleChoice(prev.player2.choice) },
     }));
-  };
+  }, []);
 
-  const getRoundResults = (board) => {
-    //winner player1 , player2 ,draw
-    const symbol = checkForWinner(board);
-    if (symbol) {
-      return game.player1.choice === symbol ? "player1" : "player2";
-    }
-    if (board.every((cell) => cell !== "")) return "draw";
-    return null;
-  };
+  const getRoundResults = (board) =>
+    computeRoundResult(board, game.player1.choice);
 
   useEffect(() => {
-    const result = getRoundResults(game.board);
+    if (game.roundWinner) return;
+
+    const result = computeRoundResult(game.board, game.player1.choice);
     if (!result) return;
-    if (result !== "draw") {
-      setGame((prev) => ({
-        ...prev,
+
+    setGame((prev) => ({
+      ...prev,
+      roundWinner: result,
+      ...(result !== "draw" && {
         [result]: { ...prev[result], score: prev[result].score + 1 },
-      }));
-    }
+      }),
+    }));
     handleModal(<RoundOver onContinue={resetBoard} result={result} />);
-  },[]);
+  }, [
+    game.board,
+    game.player1.choice,
+    game.roundWinner,
+    handleModal,
+    resetBoard,
+  ]);
 
   return (
     <GameContext.Provider
