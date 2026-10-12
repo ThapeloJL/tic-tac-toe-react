@@ -5,7 +5,7 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   height: 80vh;
-  flex-direction: column;
+  flex-direction: ${(props) => props?.columnBased ? "column" : "row"};
   width: 100vw;
   background-color: ${(props) => props.theme.colors.primary};
   padding: 0 2rem;
@@ -25,4 +25,15 @@ export const Subtitle = styled.h2`
   font-weight: 200;
   font-family: "Poppins", sans-serif;
   background-color: transparent;
+  text-align: center;
 `;
+
+export const Text = styled.p`
+  color: ${(props) => props.theme.colors.text};
+  font-size: 1.2rem;
+  font-weight: 200;
+  font-family: "Poppins", sans-serif;
+  background-color: transparent;
+  text-align: center;
+`;
+

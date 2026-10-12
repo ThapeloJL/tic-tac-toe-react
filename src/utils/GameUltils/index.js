@@ -9,6 +9,17 @@ const winLines = [
 ];
 
 export const checkForWinner = (board) => {
+
+  for(const[a,b,c] of winLines){
+    if(board[a] !== "" && board[a] === board[b] && board[b] === board[c]){
+      return board[a];
+    }
+  } 
+  return null;
+  
+
+
+
   //diagonals
   // if(board[0] === board[4] && board[4]=== board[8]){
   //     return true
@@ -31,8 +42,6 @@ export const checkForWinner = (board) => {
   //     }
   // }
 
-  winLines.some(
-      ([a, b, c]) =>
-        board[a] !== "" && board[a] === board[b] && board[b] === board[c],
-  );
+ 
+
 };

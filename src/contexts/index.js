@@ -1,11 +1,17 @@
 import React from "react";
 import ThemeContextProvider from "./ThemeContext";
-import { GameContextProvider } from "./GameContex";
+import { GameContextProvider } from "./GameContext";
+import ModalContextProvider from "./ModalContext";
+import { SfxContextProvider } from "./SfxContext";
 
 const Provider = ({ children }) => {
   return (
     <ThemeContextProvider>
-      <GameContextProvider>{children}</GameContextProvider>
+      <SfxContextProvider>
+        <ModalContextProvider>
+          <GameContextProvider>{children}</GameContextProvider>
+        </ModalContextProvider>
+      </SfxContextProvider>
     </ThemeContextProvider>
   );
 };
