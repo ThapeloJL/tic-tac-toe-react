@@ -9,6 +9,7 @@ import { checkForWinner } from "../utils/GameUltils";
 import { ModalContext } from "./ModalContext";
 import RoundOver from "../components/Modals/RoundOver";
 import { genConfig } from "react-nice-avatar";
+import { SfxContext } from "./SfxContext";
 
 export const GameContext = createContext({});
 
@@ -22,20 +23,21 @@ const computeRoundResult = (board, player1Choice) => {
 };
 
 export const GameContextProvider = (props) => {
+  const { winnerSfx, completeSfx } = useContext(SfxContext);
   const { handleModal } = useContext(ModalContext);
 
   const [game, setGame] = useState({
     board: Array(9).fill(""),
     player1: {
       choice: "X",
-      name: "Tshepang",
+      name: "Player1",
       score: 0,
       color: "#ff2329",
       avatarConfig: genConfig(),
     },
     player2: {
       choice: "O",
-      name: "Matshidiso",
+      name: "Player2",
       score: 0,
       color: "#0030f3",
       avatarConfig: genConfig(),
@@ -46,7 +48,7 @@ export const GameContextProvider = (props) => {
 
   const updateBoard = (index) => {
     setGame((prev) => {
-      if (prev.board[index] !== "") return prev;
+      if (prev.board[index] ||  prev.roundWinner !== "") return prev;
       const board = [...prev.board];
       board[index] = prev.turn;
       return { ...prev, board, turn: prev.turn === "X" ? "O" : "X" };
@@ -58,10 +60,33 @@ export const GameContextProvider = (props) => {
       ...prev,
       board: Array(9).fill(""),
       turn: "X",
+      roundWinner : "",
       player1: { ...prev.player1, choice: toggleChoice(prev.player1.choice) },
       player2: { ...prev.player2, choice: toggleChoice(prev.player2.choice) },
     }));
   }, []);
+
+  const restartGame = () => {
+    setGame({
+      board: Array(9).fill(""),
+      player1: {
+        choice: "X",
+        name: "Player1",
+        score: 0,
+        color: "#ff2329",
+        avatarConfig: genConfig(),
+      },
+      player2: {
+        choice: "O",
+        name: "Player2",
+        score: 0,
+        color: "#0030f3",
+        avatarConfig: genConfig(),
+      },
+      turn: "X",
+      roundWinner: "",
+    });
+  };
 
   const getRoundResults = (board) =>
     computeRoundResult(board, game.player1.choice);
@@ -72,6 +97,8 @@ export const GameContextProvider = (props) => {
     const result = computeRoundResult(game.board, game.player1.choice);
     if (!result) return;
 
+    if (result === "draw") completeSfx();
+    else winnerSfx();
     setGame((prev) => ({
       ...prev,
       roundWinner: result,
@@ -79,18 +106,20 @@ export const GameContextProvider = (props) => {
         [result]: { ...prev[result], score: prev[result].score + 1 },
       }),
     }));
-    handleModal(<RoundOver onContinue={resetBoard} result={result} />);
+    handleModal(<RoundOver onContinue={resetBoard} result={result} restartGame={restartGame}/>);
   }, [
     game.board,
     game.player1.choice,
     game.roundWinner,
     handleModal,
     resetBoard,
+    winnerSfx,
+    completeSfx,
   ]);
 
   return (
     <GameContext.Provider
-      value={{ updateBoard, resetBoard, getRoundResults, game }}
+      value={{ updateBoard, resetBoard, getRoundResults, game , restartGame}}
     >
       {props.children}
     </GameContext.Provider>
