@@ -21,7 +21,7 @@ export const AvatarWrapper = styled.div`
   display: flex;
    width: 8rem;
   height: 8rem;
-  filter: ${(props) => props.isPlayerActive ? " " : `grayscale(100%)`};
+  filter: ${(props) => (props.$isPlayerActive ? "none" : `grayscale(100%)`)};
 
   
  }

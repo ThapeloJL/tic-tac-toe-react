@@ -37,10 +37,18 @@ const useSound = (soundName, { volume = 0.05, timeout = 0 } = {}) => {
 
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
     }
 
     audio.currentTime = 0;
-    audio.play();
+    const playPromise = audio.play();
+    if(playPromise !== undefined){
+      playPromise.catch((error)=>{
+        if(error.name !== "NotAllowedError" && error.name !== "AbortError"){
+          console.error("Sound playback failed :",error)
+        }
+      })
+    }
 
     if (timeout > 0) {
       timeoutRef.current = setTimeout(() => {

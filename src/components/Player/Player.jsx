@@ -3,13 +3,13 @@ import { PlayerWrapper, AvatarWrapper } from "./Player.styled";
 import Avatar from "react-nice-avatar";
 import { Text } from "../../styles/General.styled";
 
-function Player({ player, isPlayerActive }) {
+function Player({ player, isplayeractive }) {
   const updatedAvatarConfig = {
     ...player.avatarConfig,
   };
   return (
     <PlayerWrapper>
-      <AvatarWrapper isPlayerActive={isPlayerActive ?? false}>
+      <AvatarWrapper $isPlayerActive={isplayeractive ?? false}>
         <Avatar {...updatedAvatarConfig} />
       </AvatarWrapper>
 

@@ -9,11 +9,12 @@ import MusicPlayer from "../../components/MusicPlayer/MusicPlayer";
 const Game = () => {
   const { game } = useContext(GameContext);
   const { board } = game;
+  console.log(board)
   return (
     <Container>
       <PlayersRow>
-        <Player player={game.player1} isPlayerActive={game.player1.choice === game.turn}/>
-        <Player player={game.player2} isPlayerActive={game.player2.choice === game.turn} />
+        <Player player={game.player1} isplayeractive={game.player1.choice === game.turn}/>
+        <Player player={game.player2} isplayeractive={game.player2.choice === game.turn} />
       </PlayersRow>
       <GameBoardStyle>
         {board.map((item, index) => {

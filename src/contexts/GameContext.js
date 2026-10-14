@@ -44,6 +44,7 @@ export const GameContextProvider = (props) => {
     },
     turn: "X",
     roundWinner: "",
+    winningCombo : null,
   });
 
   const updateBoard = (index) => {
@@ -107,6 +108,7 @@ export const GameContextProvider = (props) => {
       }),
     }));
     handleModal(<RoundOver onContinue={resetBoard} result={result} restartGame={restartGame}/>);
+   
   }, [
     game.board,
     game.player1.choice,
