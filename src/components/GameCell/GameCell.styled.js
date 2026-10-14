@@ -12,6 +12,10 @@ export const GameStyle = styled.button`
   box-shadow: 5px 8px ${(props) => props.theme.colors.cream};
   cursor: pointer;
 
+  @media screen and (min-width: 1001px) {
+    padding: 1rem;
+  }
+
   &:hover {
     transform: scale(1.05);
   }

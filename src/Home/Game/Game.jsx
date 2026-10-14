@@ -4,6 +4,7 @@ import { GameBoardStyle, PlayersRow } from "./Game.styled";
 import GameCell from "../../components/GameCell/GameCell";
 import { GameContext } from "../../contexts/GameContext";
 import Player from "../../components/Player/Player";
+import MusicPlayer from "../../components/MusicPlayer/MusicPlayer";
 
 const Game = () => {
   const { game } = useContext(GameContext);
@@ -19,6 +20,7 @@ const Game = () => {
           return <GameCell key={index} cellItem={item} index={index} />;
         })}
       </GameBoardStyle>
+      <MusicPlayer />
     </Container>
   );
 };
