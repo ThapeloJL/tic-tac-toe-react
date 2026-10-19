@@ -44,12 +44,24 @@ export const GameContextProvider = (props) => {
     },
     turn: "X",
     roundWinner: "",
-    winningCombo : null,
+    winningCombo: null,
   });
+
+  // Manual Feature Player input name
+
+  const updatePlayerName = (player, name) => {
+    setGame((prev) => ({
+      ...prev,
+      [player]: {
+        ...prev[player],
+        name: name,
+      },
+    }));
+  };
 
   const updateBoard = (index) => {
     setGame((prev) => {
-      if (prev.board[index] ||  prev.roundWinner !== "") return prev;
+      if (prev.board[index] || prev.roundWinner !== "") return prev;
       const board = [...prev.board];
       board[index] = prev.turn;
       return { ...prev, board, turn: prev.turn === "X" ? "O" : "X" };
@@ -61,7 +73,7 @@ export const GameContextProvider = (props) => {
       ...prev,
       board: Array(9).fill(""),
       turn: "X",
-      roundWinner : "",
+      roundWinner: "",
       player1: { ...prev.player1, choice: toggleChoice(prev.player1.choice) },
       player2: { ...prev.player2, choice: toggleChoice(prev.player2.choice) },
     }));
@@ -107,8 +119,13 @@ export const GameContextProvider = (props) => {
         [result]: { ...prev[result], score: prev[result].score + 1 },
       }),
     }));
-    handleModal(<RoundOver onContinue={resetBoard} result={result} restartGame={restartGame}/>);
-   
+    handleModal(
+      <RoundOver
+        onContinue={resetBoard}
+        result={result}
+        restartGame={restartGame}
+      />,
+    );
   }, [
     game.board,
     game.player1.choice,
@@ -121,7 +138,14 @@ export const GameContextProvider = (props) => {
 
   return (
     <GameContext.Provider
-      value={{ updateBoard, resetBoard, getRoundResults, game , restartGame}}
+      value={{
+        updateBoard,
+        resetBoard,
+        getRoundResults,
+        game,
+        restartGame,
+        updatePlayerName,
+      }}
     >
       {props.children}
     </GameContext.Provider>

@@ -1,10 +1,9 @@
 import React, { useContext } from "react";
 import { Container } from "./Home.styled";
 import { Title, Subtitle } from "../styles/General.styled";
-import Button from "../components/Button/Button";
 import { useNavigate } from "react-router-dom";
-import { SfxContext } from "../contexts/SfxContext";
-
+import { SfxContext } from "../contexts/SfxContext"; 
+import PlayerSetup from "../components/PlayerSetup/PlayerSetup";  // eslint-disable-next-line 
 
 const Home = () => {
   const navigation = useNavigate();
@@ -12,18 +11,16 @@ const Home = () => {
   const { hoverSfx, clickedSfx } = useContext(SfxContext);
 
   return (
-    <Container>
+    <Container columnBased>
       <Title>Tictactoe</Title>
       <Subtitle>Play with Friends : Score higher</Subtitle>
-      <Button
-        onClick={() => {
+      <PlayerSetup
+        onStart={() => {
           clickedSfx();
           navigation("/game-on");
         }}
-        onMouseEnter={() => hoverSfx()}
-      >
-        Play Now
-      </Button>
+        onMouseEnter={hoverSfx}
+      />
     </Container>
   );
 };

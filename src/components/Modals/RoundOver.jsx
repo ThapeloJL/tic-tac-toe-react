@@ -16,7 +16,7 @@ const RoundOver = ({onContinue, result ,restartGame}) => {
 
   const navigate = useNavigate()
 
-  const title = result === "draw" ? "DRAW" : `${game[result].name}`
+  const title = result === "draw" ? "DRAW" : `${game[result].name} Wins`
   return (
     <div>
       <ModalHeader>
