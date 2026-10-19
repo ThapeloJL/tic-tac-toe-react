@@ -5,7 +5,7 @@ import {
   PauseIcon,
   PlayIcon,
 } from "./MusicPlayer.styled"; // eslint-disable-next-line
-import playList from "../../utils/MusicUtils/playList";
+import playList from "../../utils/MusicUtils/playlist";
 import { randomizeIndex } from "../../utils/MusicUtils/Index";
 import { SfxContext } from "../../contexts/SfxContext";
 import { Text } from "../../styles/General.styled";

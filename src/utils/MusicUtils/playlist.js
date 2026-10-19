@@ -1,4 +1,4 @@
-const playList = [
+const playlist = [
   "https://jetsetradio.live/radio/stations/lofi/90sFlav - Balmy.mp3",
   
 
@@ -16,4 +16,4 @@ const playList = [
   "https://jetsetradio.live/radio/stations/lofi/cat naps - hazy dreams.mp3",
 ];
 
-export default playList;
+export default playlist;
