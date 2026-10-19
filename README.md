@@ -1,7 +1,7 @@
 # Tic tac Toe Project 
 A response TicTacToe game built with React, using useReducer for state management for a predicatble use state.
 
-**Live demo**: 
+**Live demo**: https://tictactoe-zaio.netlify.app/
 
 ## Features
 Base game
