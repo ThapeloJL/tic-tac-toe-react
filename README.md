@@ -43,4 +43,4 @@ Deployed on Netlify and Github
 - React Icons [v5.7.0]
 
 ## Author
---Thapelo Legote , Full-Stack AI Engineer.
+--Thapelo Legote , Full-Stack AI Engineer. Zaio Institute of Technology
