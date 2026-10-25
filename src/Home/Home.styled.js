@@ -4,12 +4,23 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 80vh;
+  min-height: calc(100vh - 5rem);
+  min-height: calc(100dvh - 5rem);
   flex-direction: column;
-  width: 100vw;
+  width: 100%;
   background-color: ${(props) => props.theme.colors.primary};
-  padding: 0 2rem;
+  padding: 2rem;
   text-align: center;
+
+  ${(props) => props.theme.media.tablet} {
+    padding: 1.5rem;
+  }
+
+  ${(props) => props.theme.media.mobile} {
+    min-height: calc(100vh - 4rem);
+    min-height: calc(100dvh - 4rem);
+    padding: 1.25rem 1rem;
+  }
 `;
 
 export const DifficultyField = styled.div`
@@ -21,6 +32,10 @@ export const DifficultyField = styled.div`
   color: ${(props) => props.theme.colors.text};
   font-family: "Poppins", sans-serif;
   text-align: left;
+
+  ${(props) => props.theme.media.mobile} {
+    margin-top: 0.75rem;
+  }
 `;
 
 export const DifficultySelect = styled.select`

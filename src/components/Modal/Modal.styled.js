@@ -14,7 +14,7 @@ export const ModalBackdrop = styled.div`
 
 export const ModalContainer = styled.div`
   box-sizing: border-box;
-  min-width: (400px, 100%);
+  width: min(100%, 400px);
   margin: 0 auto;
   max-height: 90vh;
   max-height: 90dvh;
@@ -28,7 +28,11 @@ export const ModalContainer = styled.div`
   background-color: ${({ theme }) => theme?.colors?.primary};
   color: ${(props) => props.theme.colors.text};
 
-  @media screen and (max-width: 480px) {
+  ${(props) => props.theme.media.tablet} {
+    padding: 32px 20px;
+  }
+
+  ${(props) => props.theme.media.mobile} {
     padding: 24px 16px;
   }
 `;
@@ -57,11 +61,17 @@ export const ModalFooter = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin: 40px;
+  width: 100%;
+  margin: 1.5rem 0 0;
   gap: 10px;
   padding: 24px 0 0;
 
-  @media screen and (max-width: 480px) {
+  ${(props) => props.theme.media.tablet} {
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+  }
+
+  ${(props) => props.theme.media.mobile} {
     padding-top: 16px;
   }
 `;

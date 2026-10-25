@@ -11,8 +11,13 @@ export const PlayerWrapper = styled.div`
   color:${(props) => props.theme.colors.secondary};
 
   border-radius: 6px;
+  ${(props) => props.theme.media.tablet} {
+    margin: 0.75rem;
+  }
+
   ${(props) => props.theme.media.mobile}{
-    margin: 1rem;
+    margin: 0.5rem;
+    font-size: 0.9rem;
   }
 `;
 
@@ -23,9 +28,17 @@ export const AvatarWrapper = styled.div`
   height: 8rem;
   filter: ${(props) => (props.$isPlayerActive ? "none" : `grayscale(100%)`)};
 
-  
+   ${(props) => props.theme.media.tablet} {
+     width: 6.5rem;
+     height: 6.5rem;
+   }
+
+   ${(props) => props.theme.media.mobile} {
+     width: 4.5rem;
+     height: 4.5rem;
+   }
  }
- ${(props) => props.theme.media.mobile}{
-    margin: .5rem;
-  }
+ ${(props) => props.theme.media.mobile} {
+     margin: 0.25rem;
+   }
 `

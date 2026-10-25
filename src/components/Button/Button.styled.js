@@ -6,7 +6,7 @@ export const ButtonWarpper= styled.button`
      padding: 20px 20px;
      border-radius: 20px;
      cursor: pointer;
-     min-width: 300px;
+     width: min(100%, 300px);
      font-size:1.2rem;
      border: none;
      font-weight: 600;
@@ -14,5 +14,14 @@ export const ButtonWarpper= styled.button`
      &:hover{
         box-shadow: 5px 5px blueviolet;
      }
-     
+
+     ${(props) => props.theme.media.tablet} {
+        padding: 16px;
+     }
+
+     ${(props) => props.theme.media.mobile} {
+        padding: 14px 16px;
+        font-size: 1rem;
+        border-radius: 14px;
+     }
     `

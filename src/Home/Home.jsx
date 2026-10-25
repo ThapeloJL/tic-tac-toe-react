@@ -4,10 +4,12 @@ import { Title, Subtitle } from "../styles/General.styled";
 import { useNavigate } from "react-router-dom";
 import { SfxContext } from "../contexts/SfxContext"; 
 import PlayerSetup from "../components/PlayerSetup/PlayerSetup";  // eslint-disable-next-line 
+import { GameContext, GAME_MODES } from "../contexts/GameContext";
 
 const Home = () => {
   const navigation = useNavigate();
   const [difficulty, setDifficulty] = useState("easy");
+  const { game, setGameMode } = useContext(GameContext);
 
   const { hoverSfx, clickedSfx } = useContext(SfxContext);
 
@@ -15,6 +17,18 @@ const Home = () => {
     <Container columnBased>
       <Title>Tictactoe</Title>
       <Subtitle>Play with Friends : Score higher</Subtitle>
+      <DifficultyField>
+        <label htmlFor="game-mode">Game mode</label>
+        <DifficultySelect
+          id="game-mode"
+          name="gameMode"
+          value={game.gameMode}
+          onChange={(event) => setGameMode(event.target.value)}
+        >
+          <option value={GAME_MODES.TWO_PLAYERS}>2 Players</option>
+          <option value={GAME_MODES.VS_COMPUTER}>vs Computer</option>
+        </DifficultySelect>
+      </DifficultyField>
       <DifficultyField>
         <label htmlFor="game-difficulty">Game difficulty</label>
         <DifficultySelect

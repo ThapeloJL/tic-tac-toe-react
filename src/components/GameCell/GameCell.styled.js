@@ -5,19 +5,37 @@ export const GameStyle = styled.button`
   text-decoration: ${(props) => props.theme.colors.primary};
   background-color: ${(props) => props.theme.colors.secondary};
   border: none;
-  width: 10rem;
-  height: 10rem;
+  width: 100%;
+  aspect-ratio: 1;
   font-size: 3rem;
-  border-radius: 2.5rem;
+  border-radius: clamp(1rem, 4vw, 2.5rem);
   box-shadow: 5px 8px ${(props) => props.theme.colors.cream};
-  cursor: pointer;
+  cursor: ${(props) => (props.disabled ? "default" : "pointer")};
 
-  @media screen and (min-width: 1001px) {
-    padding: 1rem;
+  svg {
+    width: 100%;
+    height: 100%;
   }
 
-  &:hover {
-    transform: scale(1.05);
+  ${(props) => props.theme.media.tablet} {
+    font-size: 2.5rem;
+    border-radius: 1.5rem;
+  }
+
+  ${(props) => props.theme.media.mobile} {
+    font-size: 2rem;
+    border-radius: 1rem;
+    box-shadow: 3px 4px ${(props) => props.theme.colors.cream};
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:not(:disabled):hover {
+      transform: scale(1);
+    }
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(1);
   }
 `;
 export const Preview = styled.span`
@@ -29,7 +47,7 @@ export const Preview = styled.span`
   justify-content: center;
   opacity: 0;
   transition: opacity 0.15s;
-  padding: 30px;
+  padding: clamp(0.75rem, 4vw, 1.875rem);
   size: small;
 
   ${GameStyle}:hover & {
